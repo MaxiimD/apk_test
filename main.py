@@ -74,7 +74,7 @@ class RVTestApp(MDApp):
 
     def insert_issue_to_db(self):
         pass
-        # move to another window
+        # move to another windoww
 
 
 RVTestApp().run()
