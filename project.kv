@@ -1,15 +1,29 @@
-Interface:
-    TextInput:
-        id: textInput
-        size_hint:0.5,0.1
-        pos_hint: {"center_x":0.5, "center_y":0.6}
-    Label:
-        id: label
-        text: "Nothing"
-        size_hint:0.5,0.1
-        pos_hint:{"center_x":0.5, "center_y":0.5}
-    Button:
-        text: "Click Me!"
-        size_hint:0.5,0.1
-        pos_hint:{"center_x":0.5, "center_y":0.4}
-        on_press: root.display_information()
+ScreenManager:
+    id: manager
+    Screen:
+        BoxLayout:
+            orientation: 'vertical'
+            GridLayout:
+                cols:1
+                Label:
+                    text: 'Write a JSON string'
+                TextInput:
+                    size_hint_y: .2
+                    id: JSON
+            GridLayout:
+                cols:1
+                Button:
+                    text: 'Patch Line'
+                    on_release: app.patch(JSON.text)
+                Button:
+                    text: 'Post Line'
+                    on_release: app.post(JSON.text)
+                Button:
+                    text: 'Put Line'
+                    on_release: app.put(JSON.text)
+                Button:
+                    text: 'Delete Line'
+                    on_release: app.delete(JSON.text)
+                Button:
+                    text: 'Get & Print Database'
+                    on_release: app.get()
