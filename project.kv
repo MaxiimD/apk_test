@@ -1,61 +1,15 @@
-Screen:
-    BoxLayout:
-        orientation: 'vertical'
-        spacing: 1
-        BoxLayout:
-            size_hint_y: 1/5
-            canvas.before:
-                Color:
-                    rgba:  0, 0, 0, 1
-                Rectangle:
-                    pos: self.pos
-                    size: self.size[0], 2
-            MDIconButton:
-                icon: 'magnify'
-                size_hint_y: 1
-                on_press: app.search()
-            SearchTextInput:
-                id: Search_TextInput_id
-                size_hint_y: .97
-                pos_hint:{ 'left':0 , 'top': 1}
-                hint_text: 'search'
-                hint_text_color: 1,1,1,1
-                icon_left: 'magnify'
-                mode: "fill"
-                helper_text_mode: "persistent"
-                helper_text: "Search"
-                line_color: [1,1,1,1]
-                color_normal: [1,1,1,1]
-
-                font_size: .35 * self.height
-                active_line: False
-                multiline: False
-
-            MDIconButton:
-                icon: 'close'
-                size_hint_y:1
-                text_color: 0,0,0,1
-                on_press:
-                    app.erase()
-                    root.ids.Search_TextInput_id.text = ''
-
-        BoxLayout:
-            orientation: 'vertical'
-            padding: 4
-            RecycleView:
-                viewclass: 'Search_Select_Option'
-                data:app.rv_data
-                RecycleBoxLayout:
-                    spacing: 15
-                    padding : 10
-                    default_size: None, None
-                    default_size_hint: 1, None
-                    size_hint_y: None
-                    height: self.minimum_height
-                    orientation: 'vertical'
-        BoxLayout:
-            size_hint : 1,0.2
-            Button:
-                text: "ADD ISSUE"
-                on_press: app.insert_issue_to_db()
-
+Interface:
+    TextInput:
+        id: textInput
+        size_hint:0.5,0.1
+        pos_hint: {"center_x":0.5, "center_y":0.6}
+    Label:
+        id: label
+        text: "Nothing"
+        size_hint:0.5,0.1
+        pos_hint:{"center_x":0.5, "center_y":0.5}
+    Button:
+        text: "Click Me!"
+        size_hint:0.5,0.1
+        pos_hint:{"center_x":0.5, "center_y":0.4}
+        on_press: root.display_information()
