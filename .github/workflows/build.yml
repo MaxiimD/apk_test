@@ -21,12 +21,12 @@ jobs:
         uses: actions/cache@v2
         with:
           path: .buildozer_global
-          key: buildozer-global-53574e4574c6a459739422ccb5e6b8fdc2308c8d6093754a16aa52b2594ed81d # Replace with your path
+          key: buildozer-global-${{ hashFiles('buildozer.spec') }} # Replace with your path
 
       - uses: actions/cache@v2
         with:
           path: .buildozer
-          key: Linux-20230830-53574e4574c6a459739422ccb5e6b8fdc2308c8d6093754a16aa52b2594ed81d
+          key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashFiles('buildozer.spec') }}
 
       - name: Build with Buildozer
         uses: ArtemSBulgakov/buildozer-action@v1
