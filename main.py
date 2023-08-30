@@ -3,30 +3,19 @@ from kivy.properties import ListProperty
 from kivymd.app import MDApp
 from kivymd.uix.list import OneLineAvatarIconListItem
 from kivymd.uix.textfield import MDTextField
-from firebase import firebase
-
-
-# Builder.load_file('project.kv')
-
-
-# class MyGridLayout(GridLayout):
-#     def __init__(self, **kwargs):
-#         super().__init__(**kwargs)
-#         self.cols = 2
-#         self.search_bar = TextInput(multiline=False)
-#         self.add_widget(self.search_bar)
-#         self.search = Button().add_widget(Image())
+import requests
 
 
 class Search_Select_Option(OneLineAvatarIconListItem):
     def show_issue(self):
         pass
+        # show issue screen
 
 
 def get_issues_text_from_db():
-    fb_app = firebase.FirebaseApplication(
-        'https://communityconnect1234-default-rtdb.europe-west1.firebasedatabase.app/', None)
-    billboard_db_data = fb_app.get('/Billboard', None)
+    res = requests.get(
+        'https://communityconnect1234-default-rtdb.europe-west1.firebasedatabase.app/Billboard.json')
+    billboard_db_data = res.json()
     option_list = ""
     for dictionary in billboard_db_data:
         option_list += ','.join([msg for msg in dictionary.values()]) + ","
@@ -66,19 +55,26 @@ class SearchTextInput(MDTextField):
 class RVTestApp(MDApp):
     rv_data = ListProperty()
 
+    def reset_data_to_default(self):
+        self.rv_data = [{'text': item} for item in get_issues_text_from_db()]
+
     def update_data(self, rv_data_list):
         self.rv_data = [{'text': item} for item in rv_data_list]
         print(self.rv_data, 'update')
 
     def build(self):
-        self.rv_data = [{'text': item} for item in get_issues_text_from_db()]
+        self.reset_data_to_default()
         return Builder.load_file("project.kv")
 
     def erase(self):
-        self.rv_data = []
+        self.reset_data_to_default()
 
     def search(self):
         pass
+
+    def insert_issue_to_db(self):
+        pass
+        # move to another window
 
 
 RVTestApp().run()

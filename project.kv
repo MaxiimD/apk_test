@@ -53,3 +53,9 @@ Screen:
                     size_hint_y: None
                     height: self.minimum_height
                     orientation: 'vertical'
+        BoxLayout:
+            size_hint : 1,0.2
+            Button:
+                text: "ADD ISSUE"
+                on_press: app.insert_issue_to_db()
+
